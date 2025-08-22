@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - Organize Your Tasks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      background: #4a90e2;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar .logo h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .nav-links a {
+      margin: 0 15px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    .cta-button {
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .cta-button:hover {
+      background: #ff4040;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 100px 20px;
+      background: #eaf3fc;
+    }
+
+    .hero h2 {
+      font-size: 36px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 25px;
+    }
+
+    /* Sections */
+    section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .section-title h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #222;
+    }
+
+    .section-title p {
+      color: #666;
+      margin-bottom: 40px;
+    }
+
+    /* Features */
+    .features-grid {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .feature-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 250px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .feature-icon {
+      font-size: 40px;
+      margin-bottom: 15px;
+    }
+
+    /* Testimonials */
+    .testimonial-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 10px auto;
+      max-width: 500px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Pricing */
+    .pricing-grid {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .pricing-card {
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      width: 250px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .pricing-card h3 {
+      margin-bottom: 10px;
+    }
+
+    .pricing-card p {
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .pricing-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 15px;
+    }
+
+    .pricing-card ul li {
+      margin-bottom: 8px;
+    }
+
+    /* Footer */
+    .footer {
+      background: #333;
+      color: #fff;
+      padding: 40px 20px;
+      margin-top: 40px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-column h3 {
+      margin-bottom: 10px;
+    }
+
+    .social-links a {
+      margin-right: 10px;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .social-links a:hover {
+      text-decoration: underline;
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #bbb;
+    }
+  </style>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h1>TaskFlow</h1>
+        </div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#features">Features</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <button class="cta-button" id="get-started">Get Started</button>
+    </nav>
+
+    <header class="hero" id="home">
+        <h2 class="animate__animated animate__fadeInDown">Organize Your Tasks Efficiently</h2>
+        <p class="animate__animated animate__fadeInUp">TaskFlow helps you manage, track, and complete your tasks seamlessly.</p>
+        <button class="cta-button animate__animated animate__fadeIn" id="hero-cta">Start Now</button>
+    </header>
+
+    <section class="features" id="features">
+        <div class="section-title">
+            <h2>Features</h2>
+            <p>Everything you need to stay productive and organized.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card animate__animated animate__fadeInUp">
+                <div class="feature-icon">📋</div>
+                <h3>Task Management</h3>
+                <p>Create, organize, and prioritize tasks effortlessly.</p>
+            </div>
+            <div class="feature-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                <div class="feature-icon">⏰</div>
+                <h3>Reminders & Notifications</h3>
+                <p>Never miss a deadline with timely reminders.</p>
+            </div>
+            <div class="feature-card animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
+                <div class="feature-icon">📊</div>
+                <h3>Analytics</h3>
+                <p>Track your productivity and improve your workflow.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="section-title">
+            <h2>Happy Users</h2>
+            <p>See what our users say about TaskFlow.</p>
+        </div>
+        <div class="testimonial-card animate__animated animate__fadeIn">
+            <p>"TaskFlow completely changed how I manage my day. Highly recommended!"</p>
+            <strong>- Alice M.</strong>
+        </div>
+        <div class="testimonial-card animate__animated animate__fadeIn" style="animation-delay: 0.2s;">
+            <p>"Simple, clean, and very intuitive. Keeps me on track every day."</p>
+            <strong>- John D.</strong>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="section-title">
+            <h2>Pricing</h2>
+            <p>Choose a plan that fits your needs.</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card animate__animated animate__fadeInUp">
+                <h3>Free</h3>
+                <p>$0 / month</p>
+                <ul>
+                    <li>Basic Task Management</li>
+                    <li>Limited Reminders</li>
+                </ul>
+                <button class="cta-button">Choose Free</button>
+            </div>
+            <div class="pricing-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                <h3>Pro</h3>
+                <p>$9 / month</p>
+                <ul>
+                    <li>Unlimited Tasks</li>
+                    <li>Advanced Reminders</li>
+                    <li>Analytics</li>
+                </ul>
+                <button class="cta-button">Choose Pro</button>
+            </div>
+            <div class="pricing-card animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
+                <h3>Team</h3>
+                <p>$29 / month</p>
+                <ul>
+                    <li>Team Collaboration</li>
+                    <li>Task Assignment</li>
+                    <li>Priority Support</li>
+                </ul>
+                <button class="cta-button">Choose Team</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer" id="contact">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>TaskFlow</h3>
+                <p>Organize, track, and complete your tasks efficiently.</p>
+                <div class="social-links">
+                    <a href="#">FB</a>
+                    <a href="#">IG</a>
+                    <a href="#">TW</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul>
+                    <li>support@taskflow.com</li>
+                    <li>+1 234 567 890</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 TaskFlow. All rights reserved.
+        </div>
+    </footer>
+
+    <script >
+
+        document.querySelectorAll('a[href^="#"], #get-started, #hero-cta').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href') || '#pricing');
+        target.scrollIntoView({ behavior: 'smooth' });
+    });
+});
+    </script>
+</body>
+</html>
