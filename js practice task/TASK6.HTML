@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+       <h1>Filter - Passing Scores</h1>
+       <p id="pass">passing score from 100,400,900 = </p>
+       <script>
+        const number=[100,400,900];
+        const pas=number.filter(x=> x>200);
+         document.getElementById("pass").textContent="passing score from 100,400,900 ="+pas;
+       </script>
+
+</body>
+
+</html>

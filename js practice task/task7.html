@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Reduce - Total Score</h1>
+    <p id="reduce"> [10, 20, 30] to sum scores = </p>
+    <script>
+        const number=[10, 20, 30];
+        const reduce=number.reduce((total,x)=>total+x,0);
+        document.getElementById("reduce").textContent="[10, 20, 30] to sum scores ="+reduce;
+    </script>
+</body>
+</html>

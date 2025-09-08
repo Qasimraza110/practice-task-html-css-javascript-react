@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+<body>
+    <h1>Format Student Name</h1>
+    <p id="upper">qasim = </p>
+
+    <script>
+        const uper = name => {
+            return name.toUpperCase();
+        };
+
+        const p = document.getElementById('upper');
+
+        p.textContent = "qasim = " + uper("qasim");
+    </script>
+</body>
+</html>

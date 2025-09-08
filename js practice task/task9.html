@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Copy</title>
+</head>
+<body>
+    <h1>Deep Copy- Student Object</h1>
+    <p id="copy">"Ali", scores: [85, 90, 95] before deep = </p>
+    <p id="copy1">"Ali", scores: [85, 90, 95] after deep = </p>
+
+    <script>
+        const student = { name: "Ali", scores: [85, 90, 95] };
+       const deepCopy = JSON.parse(JSON.stringify(student));
+       deepCopy.scores.push(100);
+        document.getElementById("copy").textContent = `"Ali", scores: [85, 90, 95] before deep = ` + student.scores;
+         document.getElementById("copy1").textContent = `"Ali", scores: [85, 90, 95] after deep = ` + deepCopy.scores;
+    </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Square Score</h1>
+  <p id="result">Square of 5 = </p>
+
+  <script>
+    function squareScore(score) {
+      return score * score;
+    }
+
+    const result = squareScore(5);
+    console.log("Square of 5:", result); 
+
+    document.getElementById("result").textContent = "Square of 5 = " + result;
+  </script>
+</body>
+</html>

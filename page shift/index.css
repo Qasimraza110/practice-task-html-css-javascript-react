@@ -1,0 +1,46 @@
+
+body {
+    background-image: url(images2.jfif);
+    background-size: cover;
+    
+   
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    color: white; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); 
+    margin-bottom: 20px; 
+}
+
+.navigation {
+    background-color: rgba(255, 255, 255, 0.8); 
+    padding: 10px 0; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+}
+
+.navigation img {
+    height: 50px; 
+    margin-right: 20px; 
+}
+
+.navigation a {
+    color: #333; 
+    text-decoration: none; 
+    padding: 10px 15px; 
+    margin: 0 10px;
+    transition: background-color 0.3s; 
+}
+
+.navigation a:hover {
+    background-color: rgba(0, 0, 0, 0.1); 
+    border-radius: 5px; 
+}
+

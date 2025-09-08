@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Calculate Average</h1>
+  <p id="avg">avg of 80 , 90 , 100 = </p>
+
+  <script>
+    function avg(array) {
+      const sum = array.reduce((total, value) => total + value, 0);
+      return sum / array.length;
+    }
+
+    const result = avg([80, 90, 100]);
+    console.log(result);
+
+    document.getElementById("avg").textContent = "avg of 80 , 90 , 100 = " + result;
+  </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+<body>
+    <h1>Map - Square All Scores</h1>
+    <p id="result">[10, 20, 30] = </p>
+
+    <script>
+        const numbers = [10, 20, 30];
+       
+        const squared = numbers.map(x => x * x);
+
+       
+        document.getElementById("result").textContent = "[10, 20, 30] = " + squared;
+    </script>
+</body>
+</html>

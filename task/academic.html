@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Academic Record - UMT</title>
+    <style>
+         body {
+            background-color: #e3f2fd;
+             font-family: Arial, sans-serif;
+      
+    }
+        #grades, .update-form {
+            width: 60%;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        .update-form label, .update-form input, .update-form select, .update-form button {
+            display: block;
+            margin-bottom: 10px;
+        }
+        a {
+            text-decoration: none;
+            color: black;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        a:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html">Back to Profile</a>
+    <div id="grades">
+        <h3>Academic Record</h3>
+        <table>
+            <tr>
+                <th>Subject</th>
+                <th>Grade</th>
+            </tr>
+            <tr><td>Mathematics</td><td>A</td></tr>
+            <tr><td>Computer Science</td><td>B</td></tr>
+            <tr><td>English Literature</td><td>A-</td></tr>
+        </table>
+    </div>
+
+    <div class="update-form">
+        <h3>Update Information</h3>
+        <form>
+            <label for="contact">New Contact Number:</label>
+            <input type="text" id="contact" name="contact">
+
+            <label for="semester">Semester:</label>
+            <select id="semester" name="semester">
+                <option value="Fall">Fall</option>
+                <option value="Spring">Spring</option>
+                <option value="Summer">Summer</option>
+            </select>
+
+            <button type="submit">Update Info</button>
+        </form>
+    </div>
+</body>
+</html>
