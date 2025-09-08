@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - ShopEasy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .profile-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .profile-header h1 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+        }
+
+        .profile-sidebar {
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #666;
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .profile-info {
+            padding: 1rem;
+        }
+
+        .info-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .info-group label {
+            display: block;
+            color: #666;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .info-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #eee;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .info-group input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .info-group input:disabled {
+            background: #f8f9fa;
+            cursor: not-allowed;
+        }
+
+        .edit-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .edit-button:hover {
+            background: #2980b9;
+        }
+
+        .save-button {
+            background: #2ecc71;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .save-button:hover {
+            background: #27ae60;
+        }
+
+        .cancel-button {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: none;
+            margin-left: 1rem;
+        }
+
+        .cancel-button:hover {
+            background: #c0392b;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2c3e50;
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            display: none;
+            z-index: 1000;
+        }
+
+        @media (max-width: 768px) {
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-sidebar {
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>My Profile</h1>
+        </div>
+        <div class="profile-content">
+            <div class="profile-sidebar">
+                <div class="profile-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <button class="edit-button" id="editButton">Edit Profile</button>
+                <button class="save-button" id="saveButton">Save Changes</button>
+                <button class="cancel-button" id="cancelButton">Cancel</button>
+            </div>
+            <div class="profile-info">
+                <div class="info-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" disabled>
+                </div>
+                <div class="info-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" disabled>
+                </div>
+                <div class="info-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" disabled>
+                </div>
+                <div class="info-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" disabled>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Check if user is logged in
+        window.onload = function() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Populate user data
+            document.getElementById('fullName').value = user.fullName || '';
+            document.getElementById('email').value = user.email || '';
+            document.getElementById('phone').value = user.phone || '';
+            document.getElementById('address').value = user.address || '';
+        }
+
+        // Edit profile functionality
+        const editButton = document.getElementById('editButton');
+        const saveButton = document.getElementById('saveButton');
+        const cancelButton = document.getElementById('cancelButton');
+        const inputs = document.querySelectorAll('.profile-info input');
+
+        editButton.addEventListener('click', function() {
+            inputs.forEach(input => input.disabled = false);
+            editButton.style.display = 'none';
+            saveButton.style.display = 'inline-block';
+            cancelButton.style.display = 'inline-block';
+        });
+
+        cancelButton.addEventListener('click', function() {
+            inputs.forEach(input => input.disabled = true);
+            editButton.style.display = 'inline-block';
+            saveButton.style.display = 'none';
+            cancelButton.style.display = 'none';
+            
+            // Reset values
+            const user = JSON.parse(localStorage.getItem('user'));
+            document.getElementById('fullName').value = user.fullName || '';
+            document.getElementById('email').value = user.email || '';
+            document.getElementById('phone').value = user.phone || '';
+            document.getElementById('address').value = user.address || '';
+        });
+
+        saveButton.addEventListener('click', function() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            user.fullName = document.getElementById('fullName').value;
+            user.phone = document.getElementById('phone').value;
+            user.address = document.getElementById('address').value;
+
+            localStorage.setItem('user', JSON.stringify(user));
+
+            inputs.forEach(input => input.disabled = true);
+            editButton.style.display = 'inline-block';
+            saveButton.style.display = 'none';
+            cancelButton.style.display = 'none';
+
+            showToast('Profile updated successfully!');
+        });
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html> 

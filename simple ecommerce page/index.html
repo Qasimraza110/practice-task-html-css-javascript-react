@@ -1,0 +1,2572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopEasy - Your One-Stop Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .cart-icon {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .account-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .account-dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            z-index: 1000;
+            margin-top: 10px;
+        }
+
+        .account-dropdown:hover .account-dropdown-content {
+            display: block;
+        }
+
+        .account-dropdown-content a {
+            color: #2c3e50 !important;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .account-dropdown-content a:hover {
+            background-color: #f8f9fa;
+            color: #3498db !important;
+        }
+
+        .account-dropdown-content a i {
+            margin-right: 8px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .account-dropdown-content .divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 5px 0;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .product-image-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .product-card:hover .product-overlay {
+            opacity: 1;
+        }
+
+        .product-action {
+            background: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .product-action:hover {
+            background: #3498db;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #e74c3c;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            animation: pulse 2s infinite;
+        }
+
+        .product-info {
+            padding: 1rem;
+            position: relative;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .add-to-cart:hover {
+            background-color: #2980b9;
+            transform: scale(1.02);
+        }
+
+        .add-to-cart:active {
+            transform: scale(0.98);
+        }
+
+        .add-to-cart::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .add-to-cart:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: #3498db;
+        }
+
+        /* Enhanced Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-out;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 450px;
+            min-height: auto;
+            position: relative;
+            padding: 2rem;
+            animation: slideUp 0.3s ease-out;
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+        }
+
+        #signupModal .modal-content {
+            max-width: 500px;
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-header h2 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-header p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .auth-button {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .auth-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .auth-button:active {
+            transform: translateY(0);
+        }
+
+        .social-login {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .social-button {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .social-button:hover {
+            background: #f8f9fa;
+            border-color: #ddd;
+        }
+
+        .switch-form {
+            margin-top: 1.5rem;
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+
+        .switch-form p {
+            color: #666;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .switch-form a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .switch-form a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-modal:hover {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
+
+            .modal-header h2 {
+                font-size: 1.75rem;
+            }
+
+            .social-buttons {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+        }
+
+        .social-login {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .social-login p {
+            color: #666;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .social-login p::before,
+        .social-login p::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 30%;
+            height: 1px;
+            background-color: #eee;
+        }
+
+        .social-login p::before {
+            left: 0;
+        }
+
+        .social-login p::after {
+            right: 0;
+        }
+
+        .google-button i {
+            color: #DB4437;
+        }
+
+        .facebook-button i {
+            color: #4267B2;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem;
+            border-radius: 4px;
+            display: none;
+            z-index: 1000;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        /* Search Bar */
+        .search-container {
+            margin: 2rem auto;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+
+        /* Filter Buttons */
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .filter-button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 20px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .filter-button:hover {
+            background-color: #3498db;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .filter-button.active {
+            background-color: #3498db;
+            color: white;
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-category {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-transform: capitalize;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            color: #3498db;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .product-description {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #e74c3c;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            z-index: 1;
+        }
+
+        .add-to-cart {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .add-to-cart:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .add-to-cart i {
+            font-size: 1.1rem;
+        }
+
+        .filter-count {
+            background: #e74c3c;
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .filter-buttons {
+                padding: 0.5rem;
+            }
+
+            .filter-button {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+
+        /* User Profile Styles */
+        .account-section {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .account-icon {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .account-icon:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .account-icon i {
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .account-icon span {
+            color: white;
+            font-weight: 500;
+        }
+
+        .user-profile {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            min-width: 250px;
+            margin-top: 1rem;
+            z-index: 1000;
+            animation: slideDown 0.3s ease;
+        }
+
+        .user-profile.show {
+            display: block;
+        }
+
+        .profile-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .profile-avatar {
+            width: 50px;
+            height: 50px;
+            background: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-avatar i {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .profile-info {
+            flex-grow: 1;
+        }
+
+        .profile-name {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.2rem;
+        }
+
+        .profile-email {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .profile-menu {
+            padding: 1rem 0;
+        }
+
+        .profile-menu a {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1.5rem;
+            color: #2c3e50;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .profile-menu a:hover {
+            background: #f8f9fa;
+            color: #3498db;
+        }
+
+        .profile-menu a i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .profile-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #eee;
+        }
+
+        .logout-button {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem;
+            width: 100%;
+            border: none;
+            background: #f8f9fa;
+            color: #e74c3c;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .logout-button:hover {
+            background: #e74c3c;
+            color: white;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Enhanced intro section styles */
+        .intro-section {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intro-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #e74c3c, #f1c40f);
+        }
+
+        .intro-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .intro-title {
+            font-size: 3.5rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: fadeInDown 1s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .intro-subtitle {
+            font-size: 1.4rem;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease;
+        }
+
+        .intro-features {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            padding: 1.5rem 2.5rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            min-width: 250px;
+        }
+
+        .feature-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
+            transition: 0.6s;
+        }
+
+        .feature-item:hover::before {
+            transform: translateX(100%);
+        }
+
+        .feature-item:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.6rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .feature-item:hover .feature-icon {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        .feature-text {
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 1.2rem;
+            text-align: left;
+        }
+
+        .search-bar {
+            max-width: 800px;
+            margin: 3rem auto;
+            position: relative;
+            animation: fadeIn 1s ease;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1.5rem 2rem;
+            padding-left: 4rem;
+            border: 2px solid #eee;
+            border-radius: 40px;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 5px rgba(52, 152, 219, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            font-size: 1.4rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus + .search-icon {
+            color: #3498db;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .intro-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 1.5s ease;
+        }
+
+        .stat-item {
+            text-align: center;
+            position: relative;
+        }
+
+        .stat-item::after {
+            content: '';
+            position: absolute;
+            right: -2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 40px;
+            background: #ddd;
+        }
+
+        .stat-item:last-child::after {
+            display: none;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #3498db;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+
+        .shape:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 15%;
+            animation-delay: -5s;
+        }
+
+        .shape:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            50% {
+                transform: translate(20px, 20px) rotate(180deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .intro-title {
+                font-size: 3rem;
+            }
+
+            .intro-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .stat-item::after {
+                display: none;
+            }
+
+            .intro-stats {
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .intro-section {
+                padding: 3rem 1rem;
+            }
+
+            .intro-title {
+                font-size: 2.5rem;
+            }
+
+            .intro-subtitle {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+
+            .intro-features {
+                gap: 1.5rem;
+            }
+
+            .feature-item {
+                padding: 1.2rem 2rem;
+                min-width: 200px;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .stat-label {
+                font-size: 1rem;
+            }
+        }
+
+        /* Enhanced Featured Products section styles */
+        .featured-section {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            margin-bottom: 2rem;
+        }
+
+        .featured-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .featured-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .featured-title {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .featured-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: #3498db;
+            border-radius: 2px;
+        }
+
+        .featured-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 1.5rem auto 0;
+            line-height: 1.6;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .featured-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .featured-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .featured-card:hover .featured-image {
+            transform: scale(1.05);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #3498db;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .featured-content {
+            padding: 1.5rem;
+        }
+
+        .featured-name {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .featured-price {
+            color: #3498db;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .featured-description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .featured-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: #3498db;
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+
+        .featured-button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .featured-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .rating-stars {
+            color: #f1c40f;
+        }
+
+        .rating-count {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 1200px) {
+            .featured-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .featured-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .featured-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-section {
+                padding: 3rem 1rem;
+            }
+
+            .featured-title {
+                font-size: 2rem;
+            }
+        }
+
+        .error {
+            border-color: #e74c3c !important;
+            box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2) !important;
+        }
+        
+        .auth-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .fa-spinner {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">ShopEasy</div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <div class="account-dropdown">
+                    <a href="#"><i class="fas fa-user"></i> Account</a>
+                    <div class="account-dropdown-content">
+                        <a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a>
+                        <a href="register.html"><i class="fas fa-user-plus"></i> Register</a>
+                        <div class="divider"></div>
+                        <a href="profile.html"><i class="fas fa-user-circle"></i> My Profile</a>
+                        <a href="#"><i class="fas fa-shopping-bag"></i> My Orders</a>
+                        <a href="#"><i class="fas fa-heart"></i> Wishlist</a>
+                        <div class="divider"></div>
+                        <a href="#" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Enhanced intro section -->
+        <section class="intro-section">
+            <div class="floating-shapes">
+                <div class="shape"></div>
+                <div class="shape"></div>
+                <div class="shape"></div>
+            </div>
+            <div class="intro-content">
+                <h1 class="intro-title">Welcome to ShopEasy</h1>
+                <p class="intro-subtitle">
+                    Discover a world of premium products at unbeatable prices. From the latest electronics to fashion trends, 
+                    we bring you the best selection of products with exceptional service and customer satisfaction.
+                </p>
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="Search for products..." onkeyup="searchProducts(this.value)">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="intro-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <span class="feature-text">Free Shipping</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-undo"></i>
+                        </div>
+                        <span class="feature-text">Easy Returns</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <span class="feature-text">Secure Payment</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <span class="feature-text">24/7 Support</span>
+                    </div>
+                </div>
+                <div class="intro-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">10K+</div>
+                        <div class="stat-label">Happy Customers</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Products</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Categories</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Support</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enhanced Featured Products section -->
+        <section class="featured-section">
+            <div class="featured-container">
+                <div class="featured-header">
+                    <h2 class="featured-title">Featured Products</h2>
+                    <p class="featured-subtitle">Discover our handpicked selection of premium products, carefully chosen for their quality and value.</p>
+                </div>
+                <div class="featured-grid">
+                    <div class="featured-card">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e" alt="Premium Headphones" class="featured-image">
+                        <div class="featured-badge">New</div>
+                        <div class="featured-content">
+                            <div class="featured-rating">
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="rating-count">(128)</span>
+                            </div>
+                            <h3 class="featured-name">Premium Headphones</h3>
+                            <div class="featured-price">$299.99</div>
+                            <p class="featured-description">Experience crystal-clear sound with our premium noise-cancelling headphones.</p>
+                            <button class="featured-button">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <div class="featured-card">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30" alt="Smart Watch" class="featured-image">
+                        <div class="featured-badge">Sale</div>
+                        <div class="featured-content">
+                            <div class="featured-rating">
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-count">(256)</span>
+                            </div>
+                            <h3 class="featured-name">Smart Watch</h3>
+                            <div class="featured-price">$199.99</div>
+                            <p class="featured-description">Stay connected and track your fitness with our advanced smartwatch.</p>
+                            <button class="featured-button">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <div class="featured-card">
+                        <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12" alt="Smart Camera" class="featured-image">
+                        <div class="featured-badge">Featured</div>
+                        <div class="featured-content">
+                            <div class="featured-rating">
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-count">(89)</span>
+                            </div>
+                            <h3 class="featured-name">Smart Camera</h3>
+                            <div class="featured-price">$399.99</div>
+                            <p class="featured-description">Capture stunning photos with our high-resolution smart camera.</p>
+                            <button class="featured-button">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <div class="featured-card">
+                        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad" alt="Wireless Earbuds" class="featured-image">
+                        <div class="featured-badge">Popular</div>
+                        <div class="featured-content">
+                            <div class="featured-rating">
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-count">(312)</span>
+                            </div>
+                            <h3 class="featured-name">Wireless Earbuds</h3>
+                            <div class="featured-price">$149.99</div>
+                            <p class="featured-description">Enjoy wireless freedom with our premium sound earbuds.</p>
+                            <button class="featured-button">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filter Buttons -->
+        <div class="filter-buttons">
+           <h2>Featured Products </h2>
+        </div>
+
+        <div class="product-grid" id="productsGrid">
+            <!-- Product cards will be dynamically generated -->
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>ShopEasy is your one-stop shop for all your tech needs. We offer quality products at competitive prices.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li>Email: info@shopeasy.com</li>
+                    <li>Phone: (555) 123-4567</li>
+                    <li>Address: 123 Tech Street, Digital City</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <ul>
+                    <li><a href="#facebook">Facebook</a></li>
+                    <li><a href="#twitter">Twitter</a></li>
+                    <li><a href="#instagram">Instagram</a></li>
+                    <li><a href="#linkedin">LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('loginModal')">&times;</span>
+            <div class="modal-header">
+                <h2>Welcome Back!</h2>
+                <p>Please login to your account</p>
+            </div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="auth-button">Login</button>
+            </form>
+            <div class="social-login">
+                <p>Or login with</p>
+                <div class="social-buttons">
+                    <button class="social-button google-button">
+                        <i class="fab fa-google"></i>
+                        Google
+                    </button>
+                    <button class="social-button facebook-button">
+                        <i class="fab fa-facebook-f"></i>
+                        Facebook
+                    </button>
+                </div>
+            </div>
+            <div class="switch-form">
+                <p>Don't have an account?</p>
+                <a onclick="switchToSignup()">Create an Account</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('signupModal')">&times;</span>
+            <div class="modal-header">
+                <h2>Create Account</h2>
+                <p>Join our community today</p>
+            </div>
+            <form id="signupForm" onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email Address</label>
+                    <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupConfirmPassword">Confirm Password</label>
+                    <input type="password" id="signupConfirmPassword" placeholder="Confirm your password" required>
+                </div>
+                <button type="submit" class="auth-button">Create Account</button>
+            </form>
+            <div class="social-login">
+                <p>Or sign up with</p>
+                <div class="social-buttons">
+                    <button class="social-button google-button">
+                        <i class="fab fa-google"></i>
+                        Google
+                    </button>
+                    <button class="social-button facebook-button">
+                        <i class="fab fa-facebook-f"></i>
+                        Facebook
+                    </button>
+                </div>
+            </div>
+            <div class="switch-form">
+                <p>Already have an account?</p>
+                <a onclick="switchToLogin()">Login to your account</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // User state management
+        let currentUser = null;
+
+        // Product Data
+        const products = [
+            // Electronics Category
+            {
+                id: 1,
+                name: "Sony WH-1000XM4 Headphones",
+                price: 349.99,
+                image: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=500",
+                category: "electronics",
+                badge: "Best Seller",
+                description: "Premium noise-cancelling wireless headphones with 30-hour battery life."
+            },
+            {
+                id: 2,
+                name: "Apple MacBook Pro M2",
+                price: 1299.99,
+                image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500",
+                category: "electronics",
+                badge: "New",
+                description: "Powerful laptop with M2 chip, 16GB RAM, and 512GB SSD."
+            },
+            {
+                id: 3,
+                name: "Samsung Galaxy S23 Ultra",
+                price: 1199.99,
+                image: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=500",
+                category: "electronics",
+                badge: "Hot",
+                description: "Latest flagship smartphone with advanced camera system."
+            },
+            {
+                id: 4,
+                name: "Apple Watch Series 8",
+                price: 399.99,
+                image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500",
+                category: "electronics",
+                badge: "Sale",
+                description: "Advanced health monitoring and fitness tracking smartwatch."
+            },
+            {
+                id: 5,
+                name: "Sony A7IV Camera",
+                price: 2499.99,
+                image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500",
+                category: "electronics",
+                description: "Professional mirrorless camera with 33MP sensor."
+            },
+
+            // Fashion Category
+            {
+                id: 6,
+                name: "Nike Air Max 270",
+                price: 150.99,
+                image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500",
+                category: "fashion",
+                badge: "Popular",
+                description: "Comfortable running shoes with Air cushioning."
+            },
+            {
+                id: 7,
+                name: "Leather Crossbody Bag",
+                price: 89.99,
+                image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=500",
+                category: "fashion",
+                description: "Genuine leather bag with adjustable strap."
+            },
+            {
+                id: 8,
+                name: "Diamond Stud Earrings",
+                price: 299.99,
+                image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500",
+                category: "fashion",
+                badge: "Luxury",
+                description: "14K gold earrings with real diamonds."
+            },
+            {
+                id: 9,
+                name: "Designer Watch",
+                price: 199.99,
+                image: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=500",
+                category: "fashion",
+                description: "Elegant stainless steel watch with leather strap."
+            },
+            {
+                id: 10,
+                name: "Cashmere Sweater",
+                price: 149.99,
+                image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500",
+                category: "fashion",
+                badge: "Premium",
+                description: "100% cashmere sweater in classic design."
+            },
+
+            // Home & Living Category
+            {
+                id: 11,
+                name: "Modern Sofa Set",
+                price: 899.99,
+                image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500",
+                category: "home",
+                description: "3-piece sofa set with premium fabric."
+            },
+            {
+                id: 12,
+                name: "Smart LED TV 55\"",
+                price: 699.99,
+                image: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=500",
+                category: "home",
+                badge: "Smart Home",
+                description: "4K Smart TV with voice control."
+            },
+            {
+                id: 13,
+                name: "Coffee Maker",
+                price: 79.99,
+                image: "https://images.unsplash.com/photo-1570486916327-ef7c5c13231e?w=500",
+                category: "home",
+                description: "Programmable coffee maker with thermal carafe."
+            },
+            {
+                id: 14,
+                name: "Smart Light Bulb Set",
+                price: 49.99,
+                image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500",
+                category: "home",
+                badge: "Smart Home",
+                description: "WiFi-enabled smart bulbs with voice control."
+            },
+            {
+                id: 15,
+                name: "Kitchen Knife Set",
+                price: 129.99,
+                image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=500",
+                category: "home",
+                description: "Professional 8-piece stainless steel knife set."
+            },
+
+            // Smart Home Category
+            {
+                id: 16,
+                name: "Smart Doorbell",
+                price: 199.99,
+                image: "https://images.unsplash.com/photo-1558002038-1055907df827?w=500",
+                category: "smart-home",
+                badge: "Security",
+                description: "Video doorbell with motion detection."
+            },
+            {
+                id: 17,
+                name: "Smart Thermostat",
+                price: 249.99,
+                image: "https://images.unsplash.com/photo-1558002038-bb4d8c2c5c2a?w=500",
+                category: "smart-home",
+                description: "Learning thermostat with energy saving features."
+            },
+            {
+                id: 18,
+                name: "Smart Lock",
+                price: 179.99,
+                image: "https://images.unsplash.com/photo-1558002038-bb4d8c2c5c2b?w=500",
+                category: "smart-home",
+                badge: "Security",
+                description: "Fingerprint and app-enabled smart lock."
+            },
+            {
+                id: 19,
+                name: "Smart Speaker",
+                price: 99.99,
+                image: "https://images.unsplash.com/photo-1543512214-318c7553f230?w=500",
+                category: "smart-home",
+                description: "Voice-controlled smart speaker with premium sound."
+            },
+            {
+                id: 20,
+                name: "Smart Security Camera",
+                price: 129.99,
+                image: "https://images.unsplash.com/photo-1558002038-bb4d8c2c5c2c?w=500",
+                category: "smart-home",
+                badge: "Security",
+                description: "1080p wireless security camera with night vision."
+            },
+
+            // Accessories Category
+            {
+                id: 21,
+                name: "Wireless Charger",
+                price: 39.99,
+                image: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=500",
+                category: "accessories",
+                description: "Fast wireless charging pad for smartphones."
+            },
+            {
+                id: 22,
+                name: "Power Bank 20000mAh",
+                price: 49.99,
+                image: "https://images.unsplash.com/photo-1609592424823-0a0b0c0c0c0c?w=500",
+                category: "accessories",
+                badge: "Best Seller",
+                description: "High-capacity power bank with fast charging."
+            },
+            {
+                id: 23,
+                name: "Bluetooth Earpiece",
+                price: 79.99,
+                image: "https://images.unsplash.com/photo-1609592424823-0a0b0c0c0c0d?w=500",
+                category: "accessories",
+                description: "True wireless earbuds with noise cancellation."
+            },
+            {
+                id: 24,
+                name: "Laptop Backpack",
+                price: 59.99,
+                image: "https://images.unsplash.com/photo-1609592424823-0a0b0c0c0c0e?w=500",
+                category: "accessories",
+                description: "Water-resistant backpack with USB charging port."
+            },
+            {
+                id: 25,
+                name: "Mechanical Keyboard",
+                price: 129.99,
+                image: "https://images.unsplash.com/photo-1609592424823-0a0b0c0c0c0f?w=500",
+                category: "accessories",
+                badge: "Gaming",
+                description: "RGB mechanical keyboard with customizable keys."
+            },
+
+            // Gaming Category
+            {
+                id: 26,
+                name: "Gaming Monitor 27\"",
+                price: 299.99,
+                image: "https://images.unsplash.com/photo-1609592424823-0a0b0c0c0c0g?w=500",
+                category: "gaming",
+                badge: "144Hz",
+                description: "27-inch 144Hz gaming monitor with HDR."
+            },
+            {
+                id: 27,
+                name: "Gaming Mouse",
+                price: 79.99,
+                image: "https://images.unsplash.com/photo-1609592424823-0a0b0c0c0c0h?w=500",
+                category: "gaming",
+                description: "High-precision wireless gaming mouse."
+            },
+            {
+                id: 28,
+                name: "Gaming Headset",
+                price: 89.99,
+                image: "https://images.unsplash.com/photo-1609592424823-0a0b0c0c0c0i?w=500",
+                category: "gaming",
+                description: "7.1 surround sound gaming headset."
+            },
+            {
+                id: 29,
+                name: "Gaming Chair",
+                price: 249.99,
+                image: "https://images.unsplash.com/photo-1609592424823-0a0b0c0c0c0j?w=500",
+                category: "gaming",
+                badge: "Ergonomic",
+                description: "Ergonomic gaming chair with lumbar support."
+            },
+            {
+                id: 30,
+                name: "Gaming Mousepad",
+                price: 29.99,
+                image: "https://images.unsplash.com/photo-1609592424823-0a0b0c0c0c0k?w=500",
+                category: "gaming",
+                description: "Extended RGB gaming mousepad."
+            }
+        ];
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if user is logged in
+            checkAuthStatus();
+            
+            // Hide loading screen
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.display = 'none';
+            }, 1000);
+
+            // Generate product cards
+            generateProductCards();
+
+            // Initialize search functionality
+            initializeSearch();
+
+            // Initialize filter buttons
+            initializeFilters();
+        });
+
+        // Check authentication status
+        function checkAuthStatus() {
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                updateUIForLoggedInUser();
+            }
+        }
+
+        // Update UI for logged in user
+        function updateUIForLoggedInUser() {
+            const accountDropdown = document.querySelector('.account-dropdown-content');
+            if (currentUser) {
+                // Update account dropdown for logged-in user
+                accountDropdown.innerHTML = `
+                    <a href="#"><i class="fas fa-user-circle"></i> ${currentUser.name}</a>
+                    <a href="#"><i class="fas fa-shopping-bag"></i> My Orders</a>
+                    <a href="#"><i class="fas fa-heart"></i> Wishlist</a>
+                    <div class="divider"></div>
+                    <a href="#" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                `;
+            } else {
+                // Update account dropdown for guest user
+                accountDropdown.innerHTML = `
+                    <a href="#" onclick="showLoginModal()"><i class="fas fa-sign-in-alt"></i> Login</a>
+                    <a href="#" onclick="showSignupModal()"><i class="fas fa-user-plus"></i> Register</a>
+                `;
+            }
+        }
+
+        // Toggle user profile
+        function toggleUserProfile() {
+            const profile = document.getElementById('userProfile');
+            profile.classList.toggle('show');
+        }
+
+        // Generate product cards
+        function generateProductCards() {
+            const productsGrid = document.getElementById('productsGrid');
+            productsGrid.innerHTML = '';
+
+            products.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card animate__animated animate__fadeIn';
+                card.innerHTML = `
+                    ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
+                    <div class="product-image-container">
+                        <img src="${product.image}" alt="${product.name}" class="product-image" 
+                             onerror="this.src='https://via.placeholder.com/300x200?text=Product+Image'">
+                        <div class="product-overlay">
+                            <button class="product-action" onclick="addToCart(${product.id})">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                            <button class="product-action" onclick="addToWishlist(${product.id})">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <p class="product-price">$${product.price}</p>
+                        <p class="product-description">${product.description}</p>
+                    </div>
+                `;
+                productsGrid.appendChild(card);
+            });
+        }
+
+        // Initialize search functionality
+        function initializeSearch() {
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const cards = document.querySelectorAll('.product-card');
+
+                cards.forEach(card => {
+                    const title = card.querySelector('.product-title').textContent.toLowerCase();
+                    const description = card.querySelector('.product-description').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                        card.style.display = 'block';
+                        card.classList.add('animate__fadeIn');
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Initialize filter buttons
+        function initializeFilters() {
+            const filterButtons = document.querySelectorAll('.filter-button');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    button.classList.add('active');
+
+                    const category = button.dataset.category;
+                    filterProducts(category);
+                });
+            });
+        }
+
+        // Filter products by category
+        function filterProducts(category) {
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                    card.classList.add('animate__fadeIn');
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Add to cart functionality
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                showToast(`${product.name} added to cart!`);
+                updateCartCount();
+            }
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type}`;
+            toast.style.display = 'block';
+            toast.classList.add('animate__animated', 'animate__fadeInUp');
+            
+            setTimeout(() => {
+                toast.classList.remove('animate__fadeInUp');
+                toast.classList.add('animate__fadeOutDown');
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                    toast.classList.remove('animate__fadeOutDown');
+                }, 500);
+            }, 3000);
+        }
+
+        // Update cart count
+        function updateCartCount() {
+            const cartCount = document.querySelector('.cart-count');
+            let count = parseInt(cartCount.textContent);
+            cartCount.textContent = count + 1;
+            cartCount.classList.add('animate__animated', 'animate__bounceIn');
+            setTimeout(() => {
+                cartCount.classList.remove('animate__animated', 'animate__bounceIn');
+            }, 1000);
+        }
+
+        // Enhanced modal functions
+        function showLoginModal() {
+            const modal = document.getElementById('loginModal');
+            modal.style.display = 'flex';
+            modal.classList.add('animate__animated', 'animate__fadeIn');
+            document.getElementById('userProfile').classList.remove('show');
+        }
+
+        function showSignupModal() {
+            const modal = document.getElementById('signupModal');
+            modal.style.display = 'flex';
+            modal.classList.add('animate__animated', 'animate__fadeIn');
+            document.getElementById('userProfile').classList.remove('show');
+        }
+
+        // Form Handling Functions
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Create form data
+            const formData = new FormData();
+            formData.append('email', email);
+            formData.append('password', password);
+            
+            // Show loading state
+            const submitButton = event.target.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+            submitButton.disabled = true;
+            
+            // Send login request
+            fetch('login.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    currentUser = data.user;
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    updateUIForLoggedInUser();
+                    showToast('Login successful! Welcome back!');
+                    closeModal('loginModal');
+                } else {
+                    showToast(data.message, 'error');
+                }
+            })
+            .catch(error => {
+                showToast('An error occurred. Please try again.', 'error');
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                // Reset button state
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+            });
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+
+            if (password !== confirmPassword) {
+                showToast('Passwords do not match!', 'error');
+                return;
+            }
+
+            // Create form data
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('email', email);
+            formData.append('password', password);
+            formData.append('confirm_password', confirmPassword);
+            
+            // Show loading state
+            const submitButton = event.target.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+            submitButton.disabled = true;
+            
+            // Send signup request
+            fetch('signup.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    currentUser = data.user;
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    updateUIForLoggedInUser();
+                    showToast('Account created successfully! Welcome to ShopEasy!');
+                    closeModal('signupModal');
+                } else {
+                    showToast(data.message, 'error');
+                }
+            })
+            .catch(error => {
+                showToast('An error occurred. Please try again.', 'error');
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                // Reset button state
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+            });
+        }
+
+        // Profile functions
+        function showProfile() {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            showToast('Profile page coming soon!');
+            document.getElementById('userProfile').classList.remove('show');
+        }
+
+        function showOrders() {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            showToast('Orders page coming soon!');
+            document.getElementById('userProfile').classList.remove('show');
+        }
+
+        function showWishlist() {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            showToast('Wishlist page coming soon!');
+            document.getElementById('userProfile').classList.remove('show');
+        }
+
+        function showSettings() {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            showToast('Settings page coming soon!');
+            document.getElementById('userProfile').classList.remove('show');
+        }
+
+        // Logout function
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            document.getElementById('userName').textContent = 'Guest User';
+            document.getElementById('userEmail').textContent = 'Not logged in';
+            document.querySelector('.account-icon i').classList.remove('text-primary');
+            showToast('Logged out successfully!');
+            document.getElementById('userProfile').classList.remove('show');
+        }
+
+        // Modal Functions
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function switchToSignup() {
+            closeModal('loginModal');
+            showSignupModal();
+        }
+
+        function switchToLogin() {
+            closeModal('signupModal');
+            showLoginModal();
+        }
+
+        // Add wishlist functionality
+        function addToWishlist(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                showToast(`${product.name} added to wishlist!`);
+            }
+        }
+
+        function handleLogout() {
+            // Show loading state
+            const logoutButton = document.querySelector('.logout-button');
+            const originalText = logoutButton.innerHTML;
+            logoutButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging out...';
+            logoutButton.disabled = true;
+
+            fetch('logout.php')
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    currentUser = null;
+                    localStorage.removeItem('currentUser');
+                    updateUIForLoggedInUser();
+                    showToast('Logged out successfully');
+                    document.getElementById('userProfile').classList.remove('show');
+                } else {
+                    showToast(data.message, 'error');
+                }
+            })
+            .catch(error => {
+                showToast('An error occurred. Please try again.', 'error');
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                // Reset button state
+                logoutButton.innerHTML = originalText;
+                logoutButton.disabled = false;
+            });
+        }
+
+        // Close profile dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const profile = document.getElementById('userProfile');
+            const accountIcon = document.querySelector('.account-icon');
+            if (!profile.contains(e.target) && !accountIcon.contains(e.target)) {
+                profile.classList.remove('show');
+            }
+        });
+
+        // Update profile on page load
+        window.addEventListener('load', updateUserProfile);
+
+        // Add this function to your existing JavaScript
+        function searchProducts(query) {
+            const cards = document.querySelectorAll('.product-card');
+            query = query.toLowerCase();
+
+            cards.forEach(card => {
+                const title = card.querySelector('.product-title').textContent.toLowerCase();
+                const description = card.querySelector('.product-description').textContent.toLowerCase();
+                const category = card.querySelector('.product-category').textContent.toLowerCase();
+
+                if (title.includes(query) || description.includes(query) || category.includes(query)) {
+                    card.style.display = 'block';
+                    card.classList.add('animate__fadeIn');
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Add form validation
+        function validateForm(formId) {
+            const form = document.getElementById(formId);
+            const inputs = form.querySelectorAll('input[required]');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.classList.add('error');
+                    showToast(`${input.placeholder} is required`, 'error');
+                } else {
+                    input.classList.remove('error');
+                }
+            });
+
+            return isValid;
+        }
+
+        // Add this script at the end of the body tag
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            fetch('check_login.php')
+                .then(response => response.json())
+                .then(data => {
+                    const navLinks = document.querySelector('.nav-links');
+                    const loginLink = document.querySelector('a[href="login.html"]');
+                    
+                    if (data.logged_in) {
+                        // Replace login link with profile and logout links
+                        loginLink.innerHTML = `
+                            <a href="profile.php" class="nav-link">
+                                <i class="fas fa-user"></i> My Profile
+                            </a>
+                            <a href="logout.php" class="nav-link">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        `;
+                    }
+                })
+                .catch(error => console.error('Error checking login status:', error));
+        });
+    </script>
+</body>
+</html> 

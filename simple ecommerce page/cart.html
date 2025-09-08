@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - ShopEasy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            min-height: 100vh;
+        }
+
+        .cart-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .cart-container h1 {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .cart-items {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: 100px 1fr auto;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .item-details h3 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .price {
+            color: #e74c3c;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quantity-btn {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: #e9ecef;
+        }
+
+        .quantity-controls input {
+            width: 60px;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .subtotal {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            color: #c0392b;
+        }
+
+        .cart-summary {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            text-align: right;
+        }
+
+        .total {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .total span:last-child {
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .checkout-button {
+            background: #2ecc71;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkout-button:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
+        }
+
+        .empty-cart {
+            text-align: center;
+            color: #666;
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .cart-item {
+                grid-template-columns: 80px 1fr;
+            }
+
+            .remove-btn {
+                grid-column: 2;
+                justify-self: end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cart-container">
+        <h1>Shopping Cart</h1>
+        <div id="cartItems" class="cart-items">
+            <!-- Cart items will be loaded here -->
+        </div>
+        <div class="cart-summary">
+            <div class="total">
+                <span>Total:</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <button id="checkoutButton" class="checkout-button">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        // Load cart items when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCartItems();
+        });
+
+        function loadCartItems() {
+            fetch('get_cart.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        displayCartItems(data.items, data.total);
+                    } else {
+                        showMessage(data.message || 'Error loading cart items');
+                    }
+                })
+                .catch(error => {
+                    showMessage('Error loading cart items');
+                });
+        }
+
+        function displayCartItems(items, total) {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+
+            if (items.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
+                cartTotal.textContent = '$0.00';
+                return;
+            }
+
+            let html = '';
+            items.forEach(item => {
+                html += `
+                    <div class="cart-item" data-cart-id="${item.cart_id}">
+                        <img src="${item.image_url}" alt="${item.name}">
+                        <div class="item-details">
+                            <h3>${item.name}</h3>
+                            <p class="price">$${item.price.toFixed(2)}</p>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="updateQuantity(${item.cart_id}, ${item.quantity - 1})">-</button>
+                                <input type="number" value="${item.quantity}" min="1" max="${item.stock}" 
+                                       onchange="updateQuantity(${item.cart_id}, this.value)">
+                                <button class="quantity-btn" onclick="updateQuantity(${item.cart_id}, ${item.quantity + 1})">+</button>
+                            </div>
+                            <p class="subtotal">Subtotal: $${item.subtotal.toFixed(2)}</p>
+                        </div>
+                        <button class="remove-btn" onclick="removeItem(${item.cart_id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+            });
+
+            cartItemsContainer.innerHTML = html;
+            cartTotal.textContent = `$${total.toFixed(2)}`;
+        }
+
+        function updateQuantity(cartId, newQuantity) {
+            const formData = new FormData();
+            formData.append('cart_id', cartId);
+            formData.append('action', 'update');
+            formData.append('quantity', newQuantity);
+
+            fetch('update_cart.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    loadCartItems();
+                } else {
+                    showMessage(data.message || 'Error updating quantity');
+                }
+            })
+            .catch(error => {
+                showMessage('Error updating quantity');
+            });
+        }
+
+        function removeItem(cartId) {
+            if (!confirm('Are you sure you want to remove this item?')) {
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('cart_id', cartId);
+            formData.append('action', 'remove');
+
+            fetch('update_cart.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    loadCartItems();
+                } else {
+                    showMessage(data.message || 'Error removing item');
+                }
+            })
+            .catch(error => {
+                showMessage('Error removing item');
+            });
+        }
+
+        function showMessage(message) {
+            alert(message);
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Admission form</title>
+</head>
+<body>
+  
+    <h1>UNIVERSITY OF MANAGEMENT TECHNOLOGY </h1>
+
+    <form action="submit.php" method="post">
+        <h2> ADMISSION FORM </h2>
+                 <h3> SUBJECTS: </h3>
+<select name="options">
+           <option value="option1">COMPUTER SCIENCE</option>
+            <option value="option2">CYBER SECURITY</option>
+</select><br>
+      <hr>
+      <h3>Personal Information:</h3>
+<hr>
+        <label for="name"> First Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="name"> Last Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="email"> Email:</label>
+        <input type="email" id="email" name="email"required><br>
+        <label for="phone number">Phone No.</label>
+        <input type="number" id="number" name="number"required><br>
+        <label for="date of birth">Date of Birth</label>
+        <input type="date" id="date of birth" name="date of birth"required><br>
+        <label for="Nationality"> Nationality</label>
+        <input type="nationality" id="natinality" name="nationality"><br>
+        <hr>
+       <h3>Gender:</h3>
+<hr>
+      <input type="radio" id="male" name="Gender" value="MALE">
+       <label for="male">Male</label><br>
+        <input type="radio" id="female" name="Gender" value="Female">
+            <label for="female">Female</label><br>
+<hr>
+<h3>Academic Information:</h3>
+<hr>
+      <label for="NAME">School Name </label>
+      <input type="text" id="school name" name="school name"><br>
+      <label for="marks">Marks </label>
+      <input type="marks" id="marks" name="marks" ><br>
+      <label for="NAME">Collage Name  Name </label>
+      <input type="text" id="collage name" name="collage name" ><br>
+      <label for="marks">Marks </label>
+      <input type="marks" id="marks" name="marks" ><br>
+      
+       <br>
+       
+       <div class="checkbox-container">
+        <input type="checkbox" id="information" name="information">
+        <label for="information">Verify your information</label>
+      </div>
+       <br>
+        <button type="submit">Submit</button>
+
+    </form>
+</body>
+</html>

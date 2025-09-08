@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - ShopEasy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .cart-icon {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .account-section {
+            position: relative;
+        }
+
+        .account-icon {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .account-icon:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .account-icon i {
+            font-size: 1.2rem;
+        }
+
+        .user-profile {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 300px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin-top: 1rem;
+            display: none;
+            z-index: 1000;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-avatar {
+            width: 50px;
+            height: 50px;
+            background: #f8f9fa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #3498db;
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .profile-email {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .profile-menu {
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 1rem 0;
+            margin-bottom: 1rem;
+        }
+
+        .profile-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 0;
+            color: #2c3e50;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .profile-menu-item:hover {
+            color: #3498db;
+        }
+
+        .profile-menu-item i {
+            width: 20px;
+        }
+
+        .logout-button {
+            width: 100%;
+            padding: 0.8rem;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: background 0.3s ease;
+        }
+
+        .logout-button:hover {
+            background: #c0392b;
+        }
+
+        /* Products Page Specific Styles */
+        .products-hero {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .products-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1920&q=80') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .products-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease;
+        }
+
+        .products-hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .products-hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .filter-section {
+            padding: 2rem;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .filter-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 1rem;
+            color: #2c3e50;
+            transition: all 0.3s ease;
+        }
+
+        .filter-group select:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .search-group {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .products-section {
+            padding: 4rem 2rem;
+        }
+
+        .products-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin: 3rem 0 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #3498db;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .category-title::before {
+            content: '';
+            width: 4px;
+            height: 2rem;
+            background: #3498db;
+            border-radius: 2px;
+        }
+
+        .category-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100px;
+            height: 2px;
+            background: #e74c3c;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #e74c3c;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            z-index: 1;
+        }
+
+        .product-badge.new {
+            background: #2ecc71;
+        }
+
+        .product-badge.hot {
+            background: #e74c3c;
+        }
+
+        .product-badge.sale {
+            background: #f1c40f;
+            color: #2c3e50;
+        }
+
+        .product-badge.luxury {
+            background: #9b59b6;
+        }
+
+        .product-content {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            color: #3498db;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .product-price .original {
+            text-decoration: line-through;
+            color: #95a5a6;
+            font-size: 1rem;
+            margin-right: 0.5rem;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            color: #f1c40f;
+        }
+
+        .rating-count {
+            color: #95a5a6;
+            font-size: 0.9rem;
+        }
+
+        .product-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 1rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .add-to-cart:hover {
+            background: #2980b9;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+        }
+
+        .page-link {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 10px;
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .page-link:hover,
+        .page-link.active {
+            background: #3498db;
+            color: white;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #3498db;
+        }
+
+        .copyright {
+            opacity: 0.8;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .products-hero-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .products-hero-title {
+                font-size: 2.5rem;
+            }
+
+            .filter-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-group,
+            .search-group {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .products-hero {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .products-hero-title {
+                font-size: 2.2rem;
+            }
+
+            .products-hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-hero-title {
+                font-size: 2rem;
+            }
+
+            .product-card {
+                margin: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">ShopEasy</div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </nav>
+            <div class="account-section">
+                <div class="account-icon" onclick="toggleUserProfile()">
+                    <i class="fas fa-user"></i>
+                    <span>Account</span>
+                </div>
+                <div class="user-profile" id="userProfile">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="profile-info">
+                            <div class="profile-name">Guest User</div>
+                            <div class="profile-email">Sign in to your account</div>
+                        </div>
+                    </div>
+                    <div class="profile-menu">
+                        <a href="#" class="profile-menu-item" onclick="showLoginModal()">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Login
+                        </a>
+                        <a href="#" class="profile-menu-item" onclick="showSignupModal()">
+                            <i class="fas fa-user-plus"></i>
+                            Sign Up
+                        </a>
+                    </div>
+                    <div class="profile-footer">
+                        <button class="logout-button" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="products-hero">
+        <div class="products-hero-content">
+            <h1 class="products-hero-title">Our Products</h1>
+            <p class="products-hero-subtitle">Discover our wide range of high-quality products at competitive prices</p>
+        </div>
+    </section>
+
+    <section class="filter-section">
+        <div class="filter-container">
+            <div class="filter-group">
+                <label for="category">Category</label>
+                <select id="category">
+                    <option value="">All Categories</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="fashion">Fashion</option>
+                    <option value="home">Home & Living</option>
+                    <option value="beauty">Beauty</option>
+                    <option value="sports">Sports</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="sort">Sort By</label>
+                <select id="sort">
+                    <option value="popular">Most Popular</option>
+                    <option value="newest">Newest</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
+            </div>
+            <div class="search-group">
+                <label for="search">Search Products</label>
+                <input type="text" id="search" class="search-input" placeholder="Search for products...">
+            </div>
+        </div>
+    </section>
+
+    <section class="products-section">
+        <div class="products-container">
+            <!-- Electronics & Gadgets Category -->
+            <h2 class="category-title">Electronics & Gadgets</h2>
+            <div class="products-grid">
+                <!-- Existing Electronics Products -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e" alt="Product 1" class="product-image">
+                    <div class="product-badge">New</div>
+                    <div class="product-content">
+                        <div class="product-category">Electronics</div>
+                        <h3 class="product-title">Wireless Headphones</h3>
+                        <div class="product-price">
+                            <span class="original">$199</span>
+                            $149
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-count">(128)</span>
+                        </div>
+                        <p class="product-description">Premium wireless headphones with noise cancellation and 30-hour battery life.</p>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30" alt="Product 2" class="product-image">
+                    <div class="product-content">
+                        <div class="product-category">Electronics</div>
+                        <h3 class="product-title">Smart Watch</h3>
+                        <div class="product-price">$299</div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="rating-count">(95)</span>
+                        </div>
+                        <p class="product-description">Feature-rich smartwatch with health monitoring and fitness tracking.</p>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12" alt="Product 3" class="product-image">
+                    <div class="product-badge">Sale</div>
+                    <div class="product-content">
+                        <div class="product-category">Electronics</div>
+                        <h3 class="product-title">Digital Camera</h3>
+                        <div class="product-price">
+                            <span class="original">$899</span>
+                            $699
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-count">(156)</span>
+                        </div>
+                        <p class="product-description">Professional digital camera with 4K video recording and advanced features.</p>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad" alt="Product 4" class="product-image">
+                    <div class="product-content">
+                        <div class="product-category">Electronics</div>
+                        <h3 class="product-title">Wireless Earbuds</h3>
+                        <div class="product-price">$129</div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-count">(203)</span>
+                        </div>
+                        <p class="product-description">True wireless earbuds with active noise cancellation and premium sound.</p>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- New Electronics Products -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45" alt="Gaming PC" class="product-image">
+                    <div class="product-badge">Hot Deal</div>
+                    <div class="product-content">
+                        <div class="product-category">Electronics</div>
+                        <h3 class="product-title">Gaming PC Setup</h3>
+                        <div class="product-price">
+                            <span class="original">$2499</span>
+                            $1999
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-count">(45)</span>
+                        </div>
+                        <p class="product-description">High-end gaming PC with RTX 3080, 32GB RAM, and RGB lighting.</p>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1600003263720-94b2060af947" alt="Tablet" class="product-image">
+                    <div class="product-content">
+                        <div class="product-category">Electronics</div>
+                        <h3 class="product-title">Pro Tablet</h3>
+                        <div class="product-price">$799</div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-count">(112)</span>
+                        </div>
+                        <p class="product-description">Professional tablet with stylus support and 256GB storage.</p>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45" alt="Smart Speaker" class="product-image">
+                    <div class="product-badge">New</div>
+                    <div class="product-content">
+                        <div class="product-category">Electronics</div>
+                        <h3 class="product-title">Smart Speaker</h3>
+                        <div class="product-price">$199</div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-count">(78)</span>
+                        </div>
+                        <p class="product-description">Voice-controlled smart speaker with premium sound quality.</p>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Phones Category -->
+            <h2 class="category-title">Mobile Phones</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97" alt="Flagship Phone" class="product-image">
+                    <div class="product-badge">New Launch</div>
+                    <div class="product-content">
+                        <div class="product-category">Mobile</div>
+                        <h3 class="product-title">Flagship Smartphone</h3>
+                        <div class="product-price">
+                            <span class="original">$1299</span>
+                            $1099
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-count">(89)</span>
+                        </div>
+                        <p class="product-description">Latest flagship with 5G, 256GB storage, and pro camera system.</p>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97" alt="Budget Phone" class="product-image">
+                    <div class="product-content">
+                        <div class="product-category">Mobile</div>
+                        <h3 class="product-title">Budget Smartphone</h3>
+                        <div class="product-price">$299</div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="rating-count">(156)</span>
+                        </div>
+                        <p class="product-description">Affordable smartphone with great battery life and camera.</p>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97" alt="Foldable Phone" class="product-image">
+                    <div class="product-badge">Premium</div>
+                    <div class="product-content">
+                        <div class="product-category">Mobile</div>
+                        <h3 class="product-title">Foldable Smartphone</h3>
+                        <div class="product-price">$1799</div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-count">(45)</span>
+                        </div>
+                        <p class="product-description">Innovative foldable design with flexible display technology.</p>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fashion & Apparel Category -->
+            <h2 class="category-title">Fashion & Apparel</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8" alt="Designer Watch" class="product-image">
+                    <div class="product-badge">Luxury</div>
+                    <div class="product-content">
+                        <div class="product-category">Fashion</div>
+                        <h3 class="product-title">Designer Watch</h3>
+                        <div class="product-price">$599</div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-count">(78)</span>
+                        </div>
+                        <p class="product-description">Luxury designer watch with premium materials and craftsmanship.</p>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea" alt="Designer Bag" class="product-image">
+                    <div class="product-content">
+                        <div class="product-category">Fashion</div>
+                        <h3 class="product-title">Designer Handbag</h3>
+                        <div class="product-price">$399</div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-count">(92)</span>
+                        </div>
+                        <p class="product-description">Elegant designer handbag with premium leather and modern design.</p>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8" alt="Sunglasses" class="product-image">
+                    <div class="product-badge">New</div>
+                    <div class="product-content">
+                        <div class="product-category">Fashion</div>
+                        <h3 class="product-title">Designer Sunglasses</h3>
+                        <div class="product-price">$249</div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-count">(67)</span>
+                        </div>
+                        <p class="product-description">Premium sunglasses with UV protection and stylish design.</p>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Home & Kitchen Category -->
+            <h2 class="category-title">Home & Kitchen</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc" alt="Modern Sofa" class="product-image">
+                    <div class="product-content">
+                        <div class="product-category">Home & Living</div>
+                        <h3 class="product-title">Modern Sectional Sofa</h3>
+                        <div class="product-price">$899</div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="rating-count">(78)</span>
+                        </div>
+                        <p class="product-description">Comfortable sectional sofa with premium fabric and modern design.</p>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc" alt="Smart Home System" class="product-image">
+                    <div class="product-badge">Smart Home</div>
+                    <div class="product-content">
+                        <div class="product-category">Home & Living</div>
+                        <h3 class="product-title">Smart Home System</h3>
+                        <div class="product-price">$499</div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-count">(92)</span>
+                        </div>
+                        <p class="product-description">Complete smart home system with voice control and automation.</p>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc" alt="Kitchen Set" class="product-image">
+                    <div class="product-badge">Best Seller</div>
+                    <div class="product-content">
+                        <div class="product-category">Kitchen</div>
+                        <h3 class="product-title">Professional Kitchen Set</h3>
+                        <div class="product-price">
+                            <span class="original">$299</span>
+                            $249
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-count">(167)</span>
+                        </div>
+                        <p class="product-description">Complete kitchen set with high-quality stainless steel utensils.</p>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Beauty & Personal Care -->
+            <h2 class="category-title">Beauty & Personal Care</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348" alt="Skincare Set" class="product-image">
+                    <div class="product-badge">Best Seller</div>
+                    <div class="product-content">
+                        <div class="product-category">Beauty</div>
+                        <h3 class="product-title">Premium Skincare Set</h3>
+                        <div class="product-price">
+                            <span class="original">$199</span>
+                            $149
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-count">(167)</span>
+                        </div>
+                        <p class="product-description">Complete skincare set with natural ingredients and anti-aging properties.</p>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348" alt="Makeup Kit" class="product-image">
+                    <div class="product-content">
+                        <div class="product-category">Beauty</div>
+                        <h3 class="product-title">Professional Makeup Kit</h3>
+                        <div class="product-price">$249</div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-count">(134)</span>
+                        </div>
+                        <p class="product-description">Complete makeup kit with high-quality cosmetics and tools.</p>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348" alt="Hair Care Set" class="product-image">
+                    <div class="product-badge">New</div>
+                    <div class="product-content">
+                        <div class="product-category">Beauty</div>
+                        <h3 class="product-title">Premium Hair Care Set</h3>
+                        <div class="product-price">$89</div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-count">(89)</span>
+                        </div>
+                        <p class="product-description">Complete hair care set with natural ingredients and styling tools.</p>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sports & Outdoors -->
+            <h2 class="category-title">Sports & Outdoors</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438" alt="Fitness Tracker" class="product-image">
+                    <div class="product-badge">Best Seller</div>
+                    <div class="product-content">
+                        <div class="product-category">Sports</div>
+                        <h3 class="product-title">Advanced Fitness Tracker</h3>
+                        <div class="product-price">
+                            <span class="original">$199</span>
+                            $149
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-count">(234)</span>
+                        </div>
+                        <p class="product-description">Advanced fitness tracker with heart rate monitor and GPS.</p>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438" alt="Yoga Mat" class="product-image">
+                    <div class="product-content">
+                        <div class="product-category">Sports</div>
+                        <h3 class="product-title">Premium Yoga Mat</h3>
+                        <div class="product-price">$49</div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-count">(167)</span>
+                        </div>
+                        <p class="product-description">High-quality yoga mat with perfect grip and comfort.</p>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438" alt="Dumbbell Set" class="product-image">
+                    <div class="product-badge">New</div>
+                    <div class="product-content">
+                        <div class="product-category">Sports</div>
+                        <h3 class="product-title">Professional Dumbbell Set</h3>
+                        <div class="product-price">$299</div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-count">(98)</span>
+                        </div>
+                        <p class="product-description">Complete dumbbell set with rack and storage solution.</p>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="coontact.html">Contact Us</a>
+                <a href="#">Careers</a>
+            </div>
+            <p class="copyright">© 2024 ShopEasy. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Product filtering and search functionality
+        const categorySelect = document.getElementById('category');
+        const sortSelect = document.getElementById('sort');
+        const searchInput = document.getElementById('search');
+        const productGrids = document.querySelectorAll('.products-grid');
+
+        function filterProducts() {
+            const selectedCategory = categorySelect.value.toLowerCase();
+            const searchTerm = searchInput.value.toLowerCase();
+            const sortBy = sortSelect.value;
+
+            productGrids.forEach(grid => {
+                const products = grid.querySelectorAll('.product-card');
+                let visibleCount = 0;
+
+                products.forEach(product => {
+                    const category = product.querySelector('.product-category').textContent.toLowerCase();
+                    const title = product.querySelector('.product-title').textContent.toLowerCase();
+                    const description = product.querySelector('.product-description').textContent.toLowerCase();
+                    const price = parseFloat(product.querySelector('.product-price').textContent.replace(/[^0-9.-]+/g, ''));
+
+                    const matchesCategory = !selectedCategory || category.includes(selectedCategory);
+                    const matchesSearch = !searchTerm || 
+                        title.includes(searchTerm) || 
+                        description.includes(searchTerm) || 
+                        category.includes(searchTerm);
+
+                    if (matchesCategory && matchesSearch) {
+                        product.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        product.style.display = 'none';
+                    }
+                });
+
+                // Sort products
+                const productArray = Array.from(products);
+                productArray.sort((a, b) => {
+                    const priceA = parseFloat(a.querySelector('.product-price').textContent.replace(/[^0-9.-]+/g, ''));
+                    const priceB = parseFloat(b.querySelector('.product-price').textContent.replace(/[^0-9.-]+/g, ''));
+                    const ratingA = a.querySelector('.rating-count').textContent;
+                    const ratingB = b.querySelector('.rating-count').textContent;
+
+                    switch(sortBy) {
+                        case 'price-low':
+                            return priceA - priceB;
+                        case 'price-high':
+                            return priceB - priceA;
+                        case 'popular':
+                            return parseInt(ratingB) - parseInt(ratingA);
+                        case 'newest':
+                            return b.querySelector('.product-badge')?.textContent === 'New' ? 1 : -1;
+                        default:
+                            return 0;
+                    }
+                });
+
+                // Reorder products in the grid
+                productArray.forEach(product => {
+                    grid.appendChild(product);
+                });
+
+                // Show/hide category section based on visible products
+                const categorySection = grid.closest('.category-section');
+                if (categorySection) {
+                    categorySection.style.display = visibleCount > 0 ? 'block' : 'none';
+                }
+            });
+        }
+
+        // Event listeners
+        categorySelect.addEventListener('change', filterProducts);
+        sortSelect.addEventListener('change', filterProducts);
+        searchInput.addEventListener('input', filterProducts);
+
+        // Initialize filter
+        filterProducts();
+
+        // User profile functionality
+        function toggleUserProfile() {
+            const profile = document.getElementById('userProfile');
+            profile.style.display = profile.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Close user profile when clicking outside
+        document.addEventListener('click', function(event) {
+            const profile = document.getElementById('userProfile');
+            const accountIcon = document.querySelector('.account-icon');
+            if (!profile.contains(event.target) && !accountIcon.contains(event.target)) {
+                profile.style.display = 'none';
+            }
+        });
+
+        // Cart functionality
+        let cartCount = 0;
+        const cartCountElement = document.querySelector('.cart-count');
+
+        function addToCart(productId, quantity = 1) {
+            // Check if user is logged in
+            fetch('check_login.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.logged_in) {
+                        window.location.href = 'login.html';
+                        return;
+                    }
+
+                    const formData = new FormData();
+                    formData.append('product_id', productId);
+                    formData.append('quantity', quantity);
+
+                    fetch('add_to_cart.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            alert(data.message);
+                        } else {
+                            alert(data.message || 'Error adding item to cart');
+                        }
+                    })
+                    .catch(error => {
+                        alert('Error adding item to cart');
+                    });
+                })
+                .catch(error => {
+                    console.error('Error checking login status:', error);
+                });
+        }
+
+        // Update the product card HTML to include the Add to Cart button
+        function createProductCard(product) {
+            return `
+                <div class="product-card">
+                    <img src="${product.image_url}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p class="price">$${product.price.toFixed(2)}</p>
+                    <p class="description">${product.description}</p>
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart(${product.id})">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showLoginModal() {
+            document.getElementById('loginModal').style.display = 'block';
+            document.getElementById('userProfile').style.display = 'none';
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+
+        function showSignupModal() {
+            document.getElementById('signupModal').style.display = 'block';
+            document.getElementById('userProfile').style.display = 'none';
+        }
+
+        function closeSignupModal() {
+            document.getElementById('signupModal').style.display = 'none';
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            // Add login logic here
+            closeLoginModal();
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            // Add signup logic here
+            closeSignupModal();
+        }
+
+        function logout() {
+            // Add logout logic here
+            document.getElementById('userProfile').style.display = 'none';
+        }
+
+        function toggleCart() {
+            const cart = document.getElementById('cart');
+            cart.classList.toggle('active');
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html> 

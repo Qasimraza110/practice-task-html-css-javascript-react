@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - ShopEasy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .register-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin: 1rem;
+        }
+
+        .register-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .register-header h1 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .register-header p {
+            color: #666;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #eee;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .register-button {
+            width: 100%;
+            padding: 1rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .register-button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .register-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .social-register {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .social-register p {
+            color: #666;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .social-register p::before,
+        .social-register p::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 30%;
+            height: 1px;
+            background: #ddd;
+        }
+
+        .social-register p::before {
+            left: 0;
+        }
+
+        .social-register p::after {
+            right: 0;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .social-button {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid #eee;
+            border-radius: 5px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .social-button:hover {
+            background: #f8f9fa;
+            border-color: #ddd;
+        }
+
+        .google-button i {
+            color: #DB4437;
+        }
+
+        .facebook-button i {
+            color: #4267B2;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+
+        .login-link p {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2c3e50;
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            display: none;
+            z-index: 1000;
+        }
+
+        @media (max-width: 480px) {
+            .register-container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            .social-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-header">
+            <h1>Create Account</h1>
+            <p>Join our community today</p>
+        </div>
+        <div class="error-message" id="errorMessage"></div>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+                <div class="error" id="fullNameError"></div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <div class="error" id="emailError"></div>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                <div class="error" id="phoneError"></div>
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" placeholder="Enter your address" required>
+                <div class="error" id="addressError"></div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <div class="error" id="passwordError"></div>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                <div class="error" id="confirmPasswordError"></div>
+            </div>
+            <button type="submit" class="register-button">Create Account</button>
+        </form>
+        <div class="social-register">
+            <p>Or sign up with</p>
+            <div class="social-buttons">
+                <button class="social-button google-button">
+                    <i class="fab fa-google"></i>
+                    Google
+                </button>
+                <button class="social-button facebook-button">
+                    <i class="fab fa-facebook-f"></i>
+                    Facebook
+                </button>
+            </div>
+        </div>
+        <div class="login-link">
+            <p>Already have an account?</p>
+            <a href="login.html">Login to your account</a>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            let isValid = true;
+
+            // Reset previous errors
+            document.querySelectorAll('.error').forEach(error => error.style.display = 'none');
+
+            // Full Name validation
+            if (!fullName) {
+                document.getElementById('fullNameError').textContent = 'Full name is required';
+                document.getElementById('fullNameError').style.display = 'block';
+                isValid = false;
+            }
+
+            // Email validation
+            if (!email) {
+                document.getElementById('emailError').textContent = 'Email is required';
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email address';
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            }
+
+            // Phone validation
+            if (!phone) {
+                document.getElementById('phoneError').textContent = 'Phone number is required';
+                document.getElementById('phoneError').style.display = 'block';
+                isValid = false;
+            }
+
+            // Address validation
+            if (!address) {
+                document.getElementById('addressError').textContent = 'Address is required';
+                document.getElementById('addressError').style.display = 'block';
+                isValid = false;
+            }
+
+            // Password validation
+            if (!password) {
+                document.getElementById('passwordError').textContent = 'Password is required';
+                document.getElementById('passwordError').style.display = 'block';
+                isValid = false;
+            } else if (password.length < 6) {
+                document.getElementById('passwordError').textContent = 'Password must be at least 6 characters long';
+                document.getElementById('passwordError').style.display = 'block';
+                isValid = false;
+            }
+
+            // Confirm password validation
+            if (!confirmPassword) {
+                document.getElementById('confirmPasswordError').textContent = 'Please confirm your password';
+                document.getElementById('confirmPasswordError').style.display = 'block';
+                isValid = false;
+            } else if (password !== confirmPassword) {
+                document.getElementById('confirmPasswordError').textContent = 'Passwords do not match';
+                document.getElementById('confirmPasswordError').style.display = 'block';
+                isValid = false;
+            }
+
+            if (isValid) {
+                const formData = new FormData();
+                formData.append('fullName', fullName);
+                formData.append('email', email);
+                formData.append('phone', phone);
+                formData.append('address', address);
+                formData.append('password', password);
+                formData.append('confirmPassword', confirmPassword);
+
+                fetch('register.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        window.location.href = data.redirect;
+                    } else {
+                        // Display field-specific errors
+                        Object.keys(data.errors).forEach(field => {
+                            const errorElement = document.getElementById(field + 'Error');
+                            if (errorElement) {
+                                errorElement.textContent = data.errors[field];
+                                errorElement.style.display = 'block';
+                            }
+                        });
+                        
+                        // Show general error if exists
+                        if (data.errors.general) {
+                            const errorMessage = document.getElementById('errorMessage');
+                            errorMessage.textContent = data.errors.general;
+                            errorMessage.classList.add('show');
+                        }
+                    }
+                })
+                .catch(error => {
+                    const errorMessage = document.getElementById('errorMessage');
+                    errorMessage.textContent = 'An error occurred. Please try again.';
+                    errorMessage.classList.add('show');
+                });
+            }
+        });
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.display = 'block';
+            toast.style.backgroundColor = type === 'success' ? '#2ecc71' : '#e74c3c';
+            
+            // Add animation
+            toast.style.animation = 'fadeIn 0.3s, fadeOut 0.3s 2.7s';
+            
+            setTimeout(() => {
+                toast.style.display = 'none';
+                toast.style.animation = '';
+            }, 3000);
+        }
+
+        // Add CSS animations for toast
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; transform: translateY(0); }
+                to { opacity: 0; transform: translateY(20px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html> 

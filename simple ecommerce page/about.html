@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - ShopEasy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .cart-icon {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .account-section {
+            position: relative;
+        }
+
+        .account-icon {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .account-icon:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .account-icon i {
+            font-size: 1.2rem;
+        }
+
+        .user-profile {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 300px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin-top: 1rem;
+            display: none;
+            z-index: 1000;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-avatar {
+            width: 50px;
+            height: 50px;
+            background: #f8f9fa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #3498db;
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .profile-email {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .profile-menu {
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 1rem 0;
+            margin-bottom: 1rem;
+        }
+
+        .profile-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 0;
+            color: #2c3e50;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .profile-menu-item:hover {
+            color: #3498db;
+        }
+
+        .profile-menu-item i {
+            width: 20px;
+        }
+
+        .logout-button {
+            width: 100%;
+            padding: 0.8rem;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: background 0.3s ease;
+        }
+
+        .logout-button:hover {
+            background: #c0392b;
+        }
+
+        /* About Page Specific Styles */
+        .hero-section {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 10rem 2rem 6rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?auto=format&fit=crop&w=1920&q=80') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .mission-section {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .mission-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .mission-content h2 {
+            font-size: 2.8rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .mission-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: #3498db;
+            border-radius: 2px;
+        }
+
+        .mission-content p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .mission-image {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .mission-image:hover {
+            transform: scale(1.02);
+        }
+
+        .values-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        }
+
+        .values-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            color: #2c3e50;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: #3498db;
+            border-radius: 2px;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .value-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: #3498db;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .value-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .value-icon {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .value-card:hover .value-icon {
+            transform: scale(1.1);
+        }
+
+        .value-title {
+            font-size: 1.6rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .value-description {
+            color: #666;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .team-section {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .team-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2.5rem;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .member-image {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            object-fit: cover;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 5px solid white;
+        }
+
+        .team-member:hover .member-image {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .member-name {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .member-role {
+            color: #3498db;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: #666;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f8f9fa;
+        }
+
+        .social-links a:hover {
+            color: white;
+            background: #3498db;
+            transform: translateY(-3px);
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #3498db;
+        }
+
+        .copyright {
+            opacity: 0.8;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .mission-content h2,
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .mission-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+
+            .mission-content h2::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 8rem 1rem 4rem;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mission-content h2,
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .value-card,
+            .team-member {
+                padding: 1.5rem;
+            }
+
+            .member-image {
+                width: 180px;
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">ShopEasy</div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </nav>
+            <div class="account-section">
+                <div class="account-icon" onclick="toggleUserProfile()">
+                    <i class="fas fa-user"></i>
+                    <span>Account</span>
+                </div>
+                <div class="user-profile" id="userProfile">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="profile-info">
+                            <div class="profile-name">Guest User</div>
+                            <div class="profile-email">Sign in to your account</div>
+                        </div>
+                    </div>
+                    <div class="profile-menu">
+                        <a href="#" class="profile-menu-item" onclick="showLoginModal()">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Login
+                        </a>
+                        <a href="#" class="profile-menu-item" onclick="showSignupModal()">
+                            <i class="fas fa-user-plus"></i>
+                            Sign Up
+                        </a>
+                    </div>
+                    <div class="profile-footer">
+                        <button class="logout-button" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Our Story</h1>
+            <p class="hero-subtitle">Building the future of e-commerce with passion and innovation</p>
+        </div>
+    </section>
+
+    <section class="mission-section">
+        <div class="mission-container">
+            <div class="mission-content">
+                <h2>Our Mission</h2>
+                <p>At ShopEasy, we're dedicated to revolutionizing the online shopping experience. Our mission is to provide customers with a seamless, secure, and enjoyable shopping platform that offers the best products at competitive prices.</p>
+                <p>We believe in creating lasting relationships with our customers through exceptional service, quality products, and innovative solutions that make shopping easier and more convenient than ever before.</p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1" alt="Our Mission" class="mission-image">
+        </div>
+    </section>
+
+    <section class="values-section">
+        <div class="values-container">
+            <h2 class="section-title">Our Values</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="value-title">Customer First</h3>
+                    <p class="value-description">We prioritize our customers' needs and satisfaction above all else, ensuring the best shopping experience possible.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="value-title">Trust & Security</h3>
+                    <p class="value-description">We maintain the highest standards of security and trust, protecting our customers' data and privacy.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="value-title">Innovation</h3>
+                    <p class="value-description">We continuously innovate and improve our platform to provide cutting-edge shopping solutions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="team-section">
+        <div class="team-container">
+            <h2 class="section-title">Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a" alt="John Doe" class="member-image">
+                    <h3 class="member-name">John Doe</h3>
+                    <p class="member-role">CEO & Founder</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2" alt="Jane Smith" class="member-image">
+                    <h3 class="member-name">Jane Smith</h3>
+                    <p class="member-role">CTO</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7" alt="Mike Johnson" class="member-image">
+                    <h3 class="member-name">Mike Johnson</h3>
+                    <p class="member-role">Head of Design</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956" alt="Sarah Wilson" class="member-image">
+                    <h3 class="member-name">Sarah Wilson</h3>
+                    <p class="member-role">Marketing Director</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+                <a href="#">Careers</a>
+            </div>
+            <p class="copyright">© 2024 ShopEasy. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleUserProfile() {
+            const profile = document.getElementById('userProfile');
+            profile.style.display = profile.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function showLoginModal() {
+            document.getElementById('loginModal').style.display = 'block';
+            document.getElementById('userProfile').style.display = 'none';
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+
+        function showSignupModal() {
+            document.getElementById('signupModal').style.display = 'block';
+            document.getElementById('userProfile').style.display = 'none';
+        }
+
+        function closeSignupModal() {
+            document.getElementById('signupModal').style.display = 'none';
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            // Add login logic here
+            closeLoginModal();
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            // Add signup logic here
+            closeSignupModal();
+        }
+
+        function logout() {
+            // Add logout logic here
+            document.getElementById('userProfile').style.display = 'none';
+        }
+
+        function toggleCart() {
+            const cart = document.getElementById('cart');
+            cart.classList.toggle('active');
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Close user profile when clicking outside
+        document.addEventListener('click', function(event) {
+            const profile = document.getElementById('userProfile');
+            const accountIcon = document.querySelector('.account-icon');
+            if (!profile.contains(event.target) && !accountIcon.contains(event.target)) {
+                profile.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html> 
