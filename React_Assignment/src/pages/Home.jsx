@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";   // 👉 add this
+import { Link } from "react-router-dom";
 import "./Home.css";
 
 const Home = () => {
@@ -14,7 +14,7 @@ const Home = () => {
             stress-free!
           </p>
 
-          {/* 👉 Wrap button with Link */}
+          
           <Link to="/destinations">
             <button className="hero-btn">Get Started</button>
           </Link>
@@ -31,3 +31,4 @@ const Home = () => {
 };
 
 export default Home;
+
