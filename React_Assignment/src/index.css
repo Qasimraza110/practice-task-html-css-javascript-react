@@ -1,0 +1,190 @@
+/* Reset & Base */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f7f9;
+  color: #333;
+}
+
+/* Navbar */
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  padding: 15px 20px;
+  background: linear-gradient(90deg, #0062ff, #00c6ff);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+/* Hero Section */
+.hero {
+  background: url("https://source.unsplash.com/1600x600/?travel,adventure") center/cover no-repeat;
+  color: white;
+  padding: 120px 20px;
+  text-align: center;
+  position: relative;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.35); /* Dark overlay for text */
+}
+
+.hero h1, .hero p {
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+}
+
+.hero p {
+  font-size: 1.3rem;
+  text-shadow: 1px 1px 6px rgba(0,0,0,0.4);
+}
+
+/* Destinations */
+.dest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  padding: 30px 20px;
+}
+
+.dest-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.dest-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+}
+
+.dest-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.dest-card:hover img {
+  transform: scale(1.05);
+}
+
+.dest-card h3 {
+  margin: 12px 15px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Destination Details */
+.details {
+  max-width: 750px;
+  margin: 40px auto;
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.details img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  transition: transform 0.3s;
+}
+
+.details img:hover {
+  transform: scale(1.03);
+}
+
+/* Packing List */
+.packing {
+  max-width: 650px;
+  margin: 30px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.packing input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 70%;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.packing input:focus {
+  border-color: #0062ff;
+}
+
+.packing button {
+  background: linear-gradient(90deg, #0062ff, #00c6ff);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  margin-left: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.packing button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.packing li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+  padding: 10px 12px;
+  background: #f1f5f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: background 0.3s;
+}
+
+.packing li:hover {
+  background: #e0f0ff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2rem; }
+  .hero p { font-size: 1rem; }
+  nav { flex-wrap: wrap; gap: 15px; }
+}

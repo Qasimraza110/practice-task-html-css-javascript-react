@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Paris",
+    "shortDescription": "The city of love and lights.",
+    "description": "Paris is famous for the Eiffel Tower, Louvre Museum, and rich culture.",
+    "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34",
+    "bestTime": "April to June, September to November",
+    "highlights": ["Eiffel Tower", "Louvre", "Seine River Cruise"]
+  },
+  {
+    "id": 2,
+    "name": "Tokyo",
+    "shortDescription": "Modern city blending tradition and tech.",
+    "description": "Tokyo offers temples, neon-lit skyscrapers, anime culture, and amazing food.",
+    "image": "https://images.unsplash.com/photo-1505066829862-21a9e29f72f8",
+    "bestTime": "March to May, September to November",
+    "highlights": ["Shibuya Crossing", "Tokyo Tower", "Sensoji Temple"]
+  }
+]

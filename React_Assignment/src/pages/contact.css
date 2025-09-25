@@ -1,0 +1,107 @@
+/* Contact Page Styling */
+.contact-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px;
+  gap: 50px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+}
+
+.contact-form {
+  flex: 1;
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.contact-form h2 {
+  font-size: 30px;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.contact-form p {
+  margin-bottom: 25px;
+  color: #555;
+  font-size: 15px;
+}
+
+.form-group {
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #444;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  font-size: 15px;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border: 1px solid #0077b6;
+  box-shadow: 0 0 6px rgba(0,119,182,0.3);
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  background: #0077b6;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-submit:hover {
+  background: #005f86;
+}
+
+/* Right Side Image */
+.contact-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-image img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .contact-container {
+    flex-direction: column;
+    padding: 30px;
+    gap: 30px;
+  }
+
+  .contact-image img {
+    max-width: 100%;
+  }
+
+  .btn-submit {
+    font-size: 15px;
+  }
+}
