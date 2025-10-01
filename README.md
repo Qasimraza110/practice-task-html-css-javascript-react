@@ -9,4 +9,6 @@ CSS
 
 JavaScript (logic, DOM, events, APIs)
 
+React
+
 ✅ Goal: Improve frontend development skills through hands-on practice.
