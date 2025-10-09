@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useState } from "react";
-import "./destination.css"; // ✅ existing styles
+import "./destination.css"; 
 
 // Same data with more details + packages
 const destinations = [
@@ -146,3 +146,4 @@ const DestinationDetails = () => {
 };
 
 export default DestinationDetails;
+
