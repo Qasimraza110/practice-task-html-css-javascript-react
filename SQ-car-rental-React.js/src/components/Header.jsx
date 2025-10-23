@@ -5,7 +5,7 @@ import { Menu, X } from "lucide-react";
 export default function Header() {
   const [open, setOpen] = useState(false);
 
-  return (
+  return ( 
     <nav className="fixed top-0 w-full z-50 bg-white text-gray-900 shadow">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
         {/* Logo */}
