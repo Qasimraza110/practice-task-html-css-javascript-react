@@ -9,7 +9,7 @@ const Navbar = () => {
       <h2 className="logo">Travel Planner Lite</h2>
       <ul className="nav-links">
         <li>
-          <Link to="/" className={location.pathname === "/" ? "active" : ""}>
+          <Link to="/" className={location.pathname === "/" ? "active" : ""}>    
             Home
           </Link>
         </li>
@@ -55,3 +55,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
