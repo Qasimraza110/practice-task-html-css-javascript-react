@@ -5,7 +5,8 @@ const Footer = () => {
     <footer className="footer">
       <p>© {new Date().getFullYear()} Travel Planner Lite. All rights reserved.</p>
     </footer>
-  );
+  );  
 };
 
 export default Footer;
+
