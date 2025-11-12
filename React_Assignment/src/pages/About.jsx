@@ -6,7 +6,7 @@ const About = () => {
     <div className="about-container">
       <h2>About Us</h2>
       <div className="about-content">
-        <div className="about-text">
+        <div className="about-text">  
           <p>
             Travel Planner Lite is your companion for easy, efficient, and fun
             trip planning. Our goal is to simplify your travel experience by
@@ -40,3 +40,4 @@ const About = () => {
 };
 
 export default About;
+
